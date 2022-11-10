@@ -17,6 +17,7 @@ public static class TorService
     private static string webEngine = "http://juhanurmihxlp77nkq76byazcldy2hlmovfu2epvl5ankdibsot4csyd.onion/search/?q=";
 
     private static List<string> tempUrls = new();
+    private static List<string> initialUrls = new();
     private static List<string> sitesOnline = new();
     private static HttpClient unProxiedClient = new();
     private static HttpClient _httpClient = new HttpClient(new SocketsHttpHandler()
@@ -43,14 +44,16 @@ public static class TorService
             string initialLink = "http://xsglq2kdl72b2wmtn5b2b7lodjmemnmcct37owlz5inrhzvyfdnryqid.onion";
             // TODO Get the initial links to crawl from the
             var resultPage = await _httpClient.LoadHtmlDocument(initialLink);
-            tempUrls = resultPage.GetAllLinks();
+            initialUrls = resultPage.GetAllLinks();
         });
 
-        if (tempUrls.Count > 0)
+        if (initialUrls.Count > 0)
         {
-            MarkupLine($"Links encontrados: [bold][purple]{tempUrls.Count}[/][/]");
-            await TestUrls(tempUrls);
+            MarkupLine($"Links encontrados: [bold][purple]{initialUrls.Count}[/][/]");
+
+            await TestUrls(initialUrls);
         }
+
         else
         {
             System.Console.WriteLine();
@@ -60,7 +63,7 @@ public static class TorService
         var panel = new Panel(new BreakdownChart()
             .Width(75)
             .AddItem("Links online", sitesOnline.Count, Color.Purple)
-            .AddItem("Links encontrados", tempUrls.Count, Color.White))
+            .AddItem("Links encontrados", tempUrls.Count + initialUrls.Count, Color.White))
         {
             Header = new PanelHeader("Total", Justify.Center),
             Padding = new Padding(1),
@@ -188,37 +191,41 @@ public static class TorService
         try
         {
             ResultsRule();
-            
+
             // await AnsiStatusAsync("Testando links...", ctx =>
             // {
-                var tester = new ActionBlock<string>(async url =>
+            var tester = new ActionBlock<string>(async url =>
+            {
+                var htmlDoc = await _httpClient.LoadHtmlDocument(url);
+
+                var title = HttpHelper.PageTitle(htmlDoc);
+
+                var links = HttpHelper.PageLinks(htmlDoc);
+                initialUrls.AddRange(links);
+                
+
+                HttpHelper.SendJsonToDb(htmlDoc, url);
+
+                // await SendDataToDb(unProxiedClient, url, jsonContent);
+
+                var table = new Table()
                 {
-                    var htmlDoc = await _httpClient.LoadHtmlDocument(url);
+                    Width = 80,
+                    Border = TableBorder.Rounded,
+                    BorderStyle = new Style(Color.Purple)
+                };
 
-                    var title = HttpHelper.PageTitle(htmlDoc);
+                table.AddColumn(new TableColumn(new Markup($"[bold]{title}[/]")));
+                table.AddRow(new Markup($"[link]{url}[/]"));
 
-                    HttpHelper.SendJsonToDb(htmlDoc, url);
+                Write(table);
+                sitesOnline.Add(url);
+            }, new ExecutionDataflowBlockOptions { MaxDegreeOfParallelism = 100 });
 
-                    // await SendDataToDb(unProxiedClient, url, jsonContent);
+            Parallel.ForEach(urls, (url) => tester.SendAsync(url));
 
-                    var table = new Table()
-                    {
-                        Width = 80,
-                        Border = TableBorder.Rounded,
-                        BorderStyle = new Style(Color.Purple)
-                    };
-
-                    table.AddColumn(new TableColumn(new Markup($"[bold]{title}[/]")));
-                    table.AddRow(new Markup($"[link]{url}[/]"));
-
-                    Write(table);
-                    sitesOnline.Add(url);
-                }, new ExecutionDataflowBlockOptions { MaxDegreeOfParallelism = 100 });
-
-                Parallel.ForEach(urls, (url) => tester.SendAsync(url));
-
-                tester.Complete();
-                tester.Completion.Wait();
+            tester.Complete();
+            tester.Completion.Wait();
 
             //     return Task.CompletedTask;
             // });
