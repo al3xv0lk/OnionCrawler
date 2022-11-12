@@ -38,4 +38,18 @@ public static class ConsoleHelper
         };
         Write(panel);
     }
+    public static void CreateTable(string title, string body)
+    {
+        var table = new Table()
+                {
+                    Width = 80,
+                    Border = TableBorder.Rounded,
+                    BorderStyle = new Style(Color.Purple)
+                };
+
+                table.AddColumn(new TableColumn(new Markup($"[bold]{title}[/]")));
+                table.AddRow(new Markup($"[link]{body}[/]"));
+
+                Write(table);
+    }
 }
