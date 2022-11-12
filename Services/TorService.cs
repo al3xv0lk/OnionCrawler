@@ -60,17 +60,8 @@ public static class TorService
             MarkupLine($"Nenhum resultado foi encontrado.");
         }
         WhiteSpace();
-        var panel = new Panel(new BreakdownChart()
-            .Width(75)
-            .AddItem("Links online", sitesOnline.Count, Color.Purple)
-            .AddItem("Links encontrados", tempUrls.Count + initialUrls.Count, Color.White))
-        {
-            Header = new PanelHeader("Total", Justify.Center),
-            Padding = new Padding(1),
-            Border = BoxBorder.Rounded,
-            BorderStyle = new Style(Color.Purple)
-        };
-        Write(panel);
+        TotalResultsPanel(sitesOnline, tempUrls);
+        
         // AnsiChart(sitesOnline.Count, "Links online", tempUrls.Count, "Links encontrados");
 
         tempUrls.Clear();

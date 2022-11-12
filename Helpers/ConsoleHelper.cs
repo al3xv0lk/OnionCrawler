@@ -24,4 +24,18 @@ public static class ConsoleHelper
         Write(rule);
 
     }
+    public static void TotalResultsPanel(List<string> sitesOnline, List<string> tempUrls)
+    {
+        var panel = new Panel(new BreakdownChart()
+            .Width(75)
+            .AddItem("Links online", sitesOnline.Count, Color.Purple)
+            .AddItem("Links encontrados", tempUrls.Count, Color.White))
+        {
+            Header = new PanelHeader("Total", Justify.Center),
+            Padding = new Padding(1),
+            Border = BoxBorder.Rounded,
+            BorderStyle = new Style(Color.Purple)
+        };
+        Write(panel);
+    }
 }
