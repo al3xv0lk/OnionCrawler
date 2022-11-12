@@ -198,18 +198,8 @@ public static class TorService
                 HttpHelper.SendJsonToDb(htmlDoc, url);
 
                 // await SendDataToDb(unProxiedClient, url, jsonContent);
-
-                var table = new Table()
-                {
-                    Width = 80,
-                    Border = TableBorder.Rounded,
-                    BorderStyle = new Style(Color.Purple)
-                };
-
-                table.AddColumn(new TableColumn(new Markup($"[bold]{title}[/]")));
-                table.AddRow(new Markup($"[link]{url}[/]"));
-
-                Write(table);
+                CreateTable(title, url);
+                
                 sitesOnline.Add(url);
             }, new ExecutionDataflowBlockOptions { MaxDegreeOfParallelism = 100 });
 
