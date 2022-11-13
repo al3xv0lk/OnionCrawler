@@ -41,7 +41,8 @@ public static class TorService
     {
         await AnsiStatusAsync("Buscando links...", async ctx =>
         {
-            string initialLink = "http://xsglq2kdl72b2wmtn5b2b7lodjmemnmcct37owlz5inrhzvyfdnryqid.onion";
+            // string initialLink = "http://xsglq2kdl72b2wmtn5b2b7lodjmemnmcct37owlz5inrhzvyfdnryqid.onion";
+            string initialLink = "http://jaz45aabn5vkemy4jkg4mi4syheisqn2wn2n4fsuitpccdackjwxplad.onion/";
             // TODO Get the initial links to crawl from the
             var resultPage = await _httpClient.LoadHtmlDocument(initialLink);
             initialUrls = resultPage.GetAllLinks();
@@ -50,8 +51,16 @@ public static class TorService
         if (initialUrls.Count > 0)
         {
             MarkupLine($"Links encontrados: [bold][purple]{initialUrls.Count}[/][/]");
-
-            await TestUrls(initialUrls);
+            while(true)
+            {
+                System.Console.WriteLine($"Initial: {initialUrls.Count}");
+                await TestUrls(initialUrls);
+                initialUrls.Clear();
+                System.Console.WriteLine($"Current initial urls: {initialUrls.Count}");
+                System.Console.WriteLine("Adding range");
+                initialUrls.AddRange(tempUrls);
+                tempUrls.Clear();
+            }
         }
 
         else
