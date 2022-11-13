@@ -37,7 +37,7 @@ public static class TorService
         };
     }
 
-    public static async Task RunSearch()
+    public static async Task RunInitialSearch()
     {
         await AnsiStatusAsync("Buscando links...", async ctx =>
         {
@@ -60,7 +60,9 @@ public static class TorService
             MarkupLine($"Nenhum resultado foi encontrado.");
         }
         WhiteSpace();
-        TotalResultsPanel(sitesOnline, tempUrls);
+        TotalResultsPanel(sitesOnline, initialUrls);
+        WhiteSpace();
+        System.Console.WriteLine($"Total new links found: {tempUrls.Count}");
         
         // AnsiChart(sitesOnline.Count, "Links online", tempUrls.Count, "Links encontrados");
 
@@ -192,10 +194,10 @@ public static class TorService
                 var title = HttpHelper.PageTitle(htmlDoc);
 
                 var links = HttpHelper.PageLinks(htmlDoc);
-                initialUrls.AddRange(links);
+                tempUrls.AddRange(links);
                 
 
-                HttpHelper.SendJsonToDb(htmlDoc, url);
+                await HttpHelper.SendJsonToDb(htmlDoc, url);
 
                 // await SendDataToDb(unProxiedClient, url, jsonContent);
                 CreateTable(title, url);

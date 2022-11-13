@@ -3,4 +3,4 @@
 // Begin loop, try to connect to tor, then the predefined run search with the results
 
 await LoadTor();
-await RunSearch();
+await RunInitialSearch();
