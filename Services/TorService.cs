@@ -39,40 +39,26 @@ public static class TorService
 
     public static async Task RunInitialSearch()
     {
-        await AnsiStatusAsync("Buscando links...", async ctx =>
+        while (true)
         {
-            // string initialLink = "http://xsglq2kdl72b2wmtn5b2b7lodjmemnmcct37owlz5inrhzvyfdnryqid.onion";
-            string initialLink = "http://jaz45aabn5vkemy4jkg4mi4syheisqn2wn2n4fsuitpccdackjwxplad.onion/";
-            // TODO Get the initial links to crawl from the
-            var resultPage = await _httpClient.LoadHtmlDocument(initialLink);
-            initialUrls = resultPage.GetAllLinks();
-        });
-
-        if (initialUrls.Count > 0)
-        {
-            MarkupLine($"Links encontrados: [bold][purple]{initialUrls.Count}[/][/]");
-            while(true)
+            for (int i = 0; i < 101; i++)
             {
-                System.Console.WriteLine($"Initial: {initialUrls.Count}");
-                await TestUrls(initialUrls);
-                initialUrls.Clear();
-                System.Console.WriteLine($"Current initial urls: {initialUrls.Count}");
-                System.Console.WriteLine("Adding range");
-                initialUrls.AddRange(tempUrls);
-                tempUrls.Clear();
+                initialUrls.Add(OnionAddrGenerator.RandOnion());
             }
+            System.Console.WriteLine($"Initial: {initialUrls.Count}");
+            await TestUrls(initialUrls);
+            initialUrls.Clear();
+            System.Console.WriteLine($"Current initial urls: {initialUrls.Count}");
+            System.Console.WriteLine("Adding range");
+            initialUrls.AddRange(tempUrls);
+            tempUrls.Clear();
         }
 
-        else
-        {
-            System.Console.WriteLine();
-            MarkupLine($"Nenhum resultado foi encontrado.");
-        }
         WhiteSpace();
         TotalResultsPanel(sitesOnline, initialUrls);
         WhiteSpace();
         System.Console.WriteLine($"Total new links found: {tempUrls.Count}");
-        
+
         // AnsiChart(sitesOnline.Count, "Links online", tempUrls.Count, "Links encontrados");
 
         tempUrls.Clear();
@@ -204,13 +190,13 @@ public static class TorService
 
                 var links = HttpHelper.PageLinks(htmlDoc);
                 tempUrls.AddRange(links);
-                
+
 
                 await HttpHelper.SendJsonToDb(htmlDoc, url);
 
                 // await SendDataToDb(unProxiedClient, url, jsonContent);
                 CreateTable(title, url);
-                
+
                 sitesOnline.Add(url);
             }, new ExecutionDataflowBlockOptions { MaxDegreeOfParallelism = 100 });
 
