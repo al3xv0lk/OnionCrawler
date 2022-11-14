@@ -14,8 +14,6 @@ namespace OnionCrawler.Services;
 
 public static class TorService
 {
-    private static string webEngine = "http://juhanurmihxlp77nkq76byazcldy2hlmovfu2epvl5ankdibsot4csyd.onion/search/?q=";
-
     private static List<string> tempUrls = new();
     private static List<string> initialUrls = new();
     private static List<string> sitesOnline = new();
