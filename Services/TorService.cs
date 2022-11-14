@@ -182,7 +182,7 @@ public static class TorService
                 tempUrls.AddRange(links);
 
 
-                await HttpHelper.SendJsonToDb(htmlDoc, url);
+                await HttpHelper.UploadJsonToOpenSearch(htmlDoc, url);
 
                 // await SendDataToDb(unProxiedClient, url, jsonContent);
                 CreateTable(title, url);

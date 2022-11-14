@@ -89,7 +89,7 @@ public static class HttpHelper
         return result;
 
     }
-    public static async Task SendJsonToDb(HtmlDocument htmlDoc, string url)
+    public static async Task UploadJsonToOpenSearch(HtmlDocument htmlDoc, string url)
     {
         using (var client = new RestClient(API))
         {
