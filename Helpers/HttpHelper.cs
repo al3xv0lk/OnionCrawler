@@ -37,21 +37,18 @@ public static class HttpHelper
         return htmlDocument;
     }
 
-    // Get the Title
     public static string PageTitle(HtmlDocument htmlDoc)
     {
         var title = htmlDoc.DocumentNode.SelectSingleNode("//head/title").InnerText;
         return title.Length > 50 ? title[..50] : title;
     }
 
-    // Get the las time the page was tested
     public static string PageLastTimeTested()
     {
         var lastTimeTested = DateTime.UtcNow.ToString("dd-MM-yyyy");
         return lastTimeTested;
     }
 
-    // Gets all links in the page
     public static List<string> PageLinks(HtmlDocument htmlDoc)
     {
         List<string> pageLinks = new();
@@ -65,7 +62,6 @@ public static class HttpHelper
         return pageLinks;
     }
 
-    // Get page content
     public static string GetPageContent(HtmlDocument htmlDoc)
     {
         return htmlDoc.DocumentNode.SelectSingleNode("//body").InnerText;
@@ -77,8 +73,7 @@ public static class HttpHelper
         return GetPageContent(htmlDoc).Contains("Restricted words") ? true : false;
     }
 
-    // Converts the website data found into json string
-    public static string DataToJson(HtmlDocument htmlDoc, string url)
+    public static string HtmlDataToOpenSearchJson(HtmlDocument htmlDoc, string url)
     {
         var model = new OpenSearchJsonModel
         {
@@ -102,7 +97,7 @@ public static class HttpHelper
             byte[] urlAsBytes = Encoding.ASCII.GetBytes(url);
             var id = System.Convert.ToBase64String(urlAsBytes);
             var request = new RestRequest(id, Method.Put);
-            request.AddStringBody(DataToJson(htmlDoc, url), ContentType.Json);
+            request.AddStringBody(HtmlDataToOpenSearchJson(htmlDoc, url), ContentType.Json);
             RestResponse response = await client.ExecuteAsync(request);
             var output = response.Content;
         }

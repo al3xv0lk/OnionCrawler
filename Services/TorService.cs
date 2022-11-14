@@ -29,9 +29,7 @@ public static class TorService
 
     public static async Task LoadTor()
     {
-        // TODO Verify if tor is running
-
-        if (TestTorProccess())
+        if (isTorProcessOn())
         {
             await TestProxy();
         };
@@ -57,13 +55,11 @@ public static class TorService
         WhiteSpace();
         System.Console.WriteLine($"Total new links found: {tempUrls.Count}");
 
-        // AnsiChart(sitesOnline.Count, "Links online", tempUrls.Count, "Links encontrados");
-
         tempUrls.Clear();
         sitesOnline.Clear();
     }
 
-    private static bool TestTorProccess()
+    private static bool isTorProcessOn()
     {
         if (Process.GetProcessesByName("tor").Length == 0)
         {
@@ -178,8 +174,6 @@ public static class TorService
         {
             ResultsRule();
 
-            // await AnsiStatusAsync("Testando links...", ctx =>
-            // {
             var tester = new ActionBlock<string>(async url =>
             {
                 var htmlDoc = await _httpClient.LoadHtmlDocument(url);
@@ -202,9 +196,6 @@ public static class TorService
 
             tester.Complete();
             tester.Completion.Wait();
-
-            //     return Task.CompletedTask;
-            // });
         }
         catch (System.Exception) { }
     }

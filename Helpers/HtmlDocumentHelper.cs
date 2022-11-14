@@ -9,11 +9,9 @@ public static class HtmlDocumentHelper
         var tempUrls = new List<string>();
         try
         {
-            // var links = htmlDoc.DocumentNode.SelectNodes("//a[@href]");
             foreach (HtmlNode link in htmlDoc.DocumentNode.SelectNodes("//a[@href]"))
             {
                 var endUrl = link.GetAttributeValue("href", string.Empty);
-                // System.Console.WriteLine(endUrl);
                 tempUrls.Add(endUrl);
             }
 
