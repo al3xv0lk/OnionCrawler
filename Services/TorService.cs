@@ -29,7 +29,7 @@ public static class TorService
     {
         if (isTorProcessOn())
         {
-            await TestTorProxy();
+            await ConnectTorProxy();
         };
     }
 
