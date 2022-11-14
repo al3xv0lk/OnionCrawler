@@ -128,19 +128,6 @@ public static class TorService
         });
     }
 
-    static async Task SendDataToDb(HttpClient httpClient, string url, StringContent jsonContent)
-    {
-        httpClient.DefaultRequestHeaders.Add("Authorization", "Basic b25pb25maW5kZXI6T24xb25maW5kZXIh");
-
-        var apiPut = "https://search-onionfinder-giusor5h6brlyi4sicbljtouhy.us-east-1.es.amazonaws.com/onionsites/_doc/";
-        using HttpResponseMessage response = await httpClient.PutAsync(
-            apiPut + url, jsonContent);
-
-        System.Console.WriteLine(response.EnsureSuccessStatusCode());
-
-        var jsonResponse = await response.Content.ReadAsStringAsync();
-        WriteLine($"{jsonResponse}\n");
-    }
     private static async Task<string> TestProxy()
     {
         var value = string.Empty;
