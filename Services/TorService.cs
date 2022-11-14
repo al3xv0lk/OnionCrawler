@@ -41,17 +41,15 @@ public static class TorService
     {
         while (true)
         {
-            for (int i = 0; i < 101; i++)
+            List<string> lines = System.IO.File.ReadLines(@"C:\Users\PC\Downloads\oniongen-go-master\oniongen-go-master\onionLinks.txt").ToList();
+            foreach (var item in lines)
             {
-                initialUrls.Add(OnionAddrGenerator.RandOnion());
+                var addr = "http://" + item + ".onion";
+                initialUrls.Add(addr);
             }
-            System.Console.WriteLine($"Initial: {initialUrls.Count}");
             await TestUrls(initialUrls);
             initialUrls.Clear();
-            System.Console.WriteLine($"Current initial urls: {initialUrls.Count}");
-            System.Console.WriteLine("Adding range");
-            initialUrls.AddRange(tempUrls);
-            tempUrls.Clear();
+            break;
         }
 
         WhiteSpace();
