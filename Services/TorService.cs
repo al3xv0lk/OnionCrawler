@@ -184,7 +184,6 @@ public static class TorService
 
                 await HttpHelper.UploadJsonToOpenSearch(htmlDoc, url);
 
-                // await SendDataToDb(unProxiedClient, url, jsonContent);
                 CreateTable(title, url);
 
                 sitesOnline.Add(url);
