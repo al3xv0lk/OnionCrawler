@@ -29,7 +29,7 @@ public static class TorService
     {
         if (isTorProcessOn())
         {
-            await TestProxy();
+            await TestTorProxy();
         };
     }
 
@@ -128,7 +128,7 @@ public static class TorService
         });
     }
 
-    private static async Task<string> TestProxy()
+    private static async Task<string> ConnectTorProxy()
     {
         var value = string.Empty;
 
@@ -136,7 +136,7 @@ public static class TorService
         {
             try
             {
-                await AnsiStatusAsync("Testando a conexão com o proxy...", async ctx =>
+                await AnsiStatusAsync("Conectando ao proxy...", async ctx =>
                 {
                     value = await _httpClient.GetStringAsync("http://duckduckgo.com");
                 });
