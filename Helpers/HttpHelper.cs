@@ -62,15 +62,15 @@ public static class HttpHelper
         return pageLinks;
     }
 
-    public static string GetPageContent(HtmlDocument htmlDoc)
+    public static string GetAllUniqueWordsInPage(HtmlDocument htmlDoc)
     {
-        return htmlDoc.DocumentNode.SelectSingleNode("//body").InnerText;
+        return string.Join(" ", htmlDoc.DocumentNode.SelectSingleNode("//body").InnerText.Split(' ').Distinct());
     }
 
     // Checks if page content has any suspicious words //! Experimental
     public static bool GetIsPotentialScam(HtmlDocument htmlDoc)
     {
-        return GetPageContent(htmlDoc).Contains("Restricted words") ? true : false;
+        return GetAllUniqueWordsInPage(htmlDoc).Contains("Restricted words") ? true : false;
     }
 
     public static string HtmlContentToJson(HtmlDocument htmlDoc, string url)
@@ -81,7 +81,7 @@ public static class HttpHelper
             title = PageTitle(htmlDoc),
             links = PageLinks(htmlDoc).ToString(),
             // todo FIX
-            content = GetPageContent(htmlDoc),
+            content = GetAllUniqueWordsInPage(htmlDoc),
             potentialScammer = GetIsPotentialScam(htmlDoc),
             lastTimeTested = PageLastTimeTested()
         };
