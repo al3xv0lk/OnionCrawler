@@ -73,7 +73,7 @@ public static class HttpHelper
         return GetPageContent(htmlDoc).Contains("Restricted words") ? true : false;
     }
 
-    public static string HtmlDataToOpenSearchJson(HtmlDocument htmlDoc, string url)
+    public static string HtmlContentToJson(HtmlDocument htmlDoc, string url)
     {
         var model = new OpenSearchJsonModel
         {
@@ -97,7 +97,7 @@ public static class HttpHelper
             byte[] urlAsBytes = Encoding.ASCII.GetBytes(url);
             var id = System.Convert.ToBase64String(urlAsBytes);
             var request = new RestRequest(id, Method.Put);
-            request.AddStringBody(HtmlDataToOpenSearchJson(htmlDoc, url), ContentType.Json);
+            request.AddStringBody(HtmlContentToJson(htmlDoc, url), ContentType.Json);
             RestResponse response = await client.ExecuteAsync(request);
             var output = response.Content;
         }

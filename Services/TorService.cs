@@ -1,4 +1,4 @@
-using Spectre.Console;
+
 using System.Diagnostics;
 using OnionCrawler.Helpers;
 using System.Threading.Tasks.Dataflow;
@@ -37,12 +37,7 @@ public static class TorService
     {
         while (true)
         {
-            List<string> lines = System.IO.File.ReadLines(@"C:\Users\PC\Downloads\oniongen-go-master\oniongen-go-master\onionLinks.txt").ToList();
-            foreach (var item in lines)
-            {
-                var addr = "http://" + item + ".onion";
-                initialUrls.Add(addr);
-            }
+            initialUrls.Add(InitialLinkToCrawl());
             await TestUrls(initialUrls);
             initialUrls.Clear();
             break;
@@ -51,11 +46,14 @@ public static class TorService
         WhiteSpace();
         TotalResultsPanel(sitesOnline, initialUrls);
         WhiteSpace();
-        System.Console.WriteLine($"Total new links found: {tempUrls.Count}");
+        WriteLine($"Total new links found: {tempUrls.Count}");
+
 
         tempUrls.Clear();
         sitesOnline.Clear();
     }
+
+    
 
     private static bool isTorProcessOn()
     {
