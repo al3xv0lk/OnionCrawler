@@ -41,16 +41,16 @@ public static class ConsoleHelper
     public static void CreateTable(string title, string body)
     {
         var table = new Table()
-                {
-                    Width = 80,
-                    Border = TableBorder.Rounded,
-                    BorderStyle = new Style(Color.Purple)
-                };
+        {
+            Width = 80,
+            Border = TableBorder.Rounded,
+            BorderStyle = new Style(Color.Purple)
+        };
 
-                table.AddColumn(new TableColumn(new Markup($"[bold]{title}[/]")));
-                table.AddRow(new Markup($"[link]{body}[/]"));
+        table.AddColumn(new TableColumn(new Markup($"[bold]{title}[/]")));
+        table.AddRow(new Markup($"[link]{body}[/]"));
 
-                Write(table);
+        Write(table);
     }
     public static string? InitialLinkToCrawl()
     {
