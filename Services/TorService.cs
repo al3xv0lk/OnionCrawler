@@ -35,12 +35,13 @@ public static class TorService
 
     public static async Task RunInitialSearch()
     {
-        while (true)
+        initialUrls.Add(InitialLinkToCrawl());
+        while (initialUrls.Count > 0)
         {
-            initialUrls.Add(InitialLinkToCrawl());
             await TestUrls(initialUrls);
             initialUrls.Clear();
-            break;
+            initialUrls.AddRange(tempUrls);
+            tempUrls.Clear();
         }
 
         WhiteSpace();
@@ -164,8 +165,8 @@ public static class TorService
                 var title = HttpHelper.PageTitle(htmlDoc);
 
                 var links = HttpHelper.PageLinks(htmlDoc);
+                if(links.Contains(url)) links.Remove(url);
                 tempUrls.AddRange(links);
-
 
                 await HttpHelper.UploadJsonToOpenSearch(htmlDoc, url);
 
