@@ -54,10 +54,4 @@ public static class ConsoleHelper
 
         Write(table);
     }
-    public static string? InitialLinkToCrawl()
-    {
-        System.Console.Write("Digite o link inicial: ");
-        var initialLink = System.Console.ReadLine();
-        return initialLink;
-    }
 }
