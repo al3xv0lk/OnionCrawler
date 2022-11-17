@@ -23,7 +23,8 @@ static class LinksHelper
     public static void AskForLink()
     {
         System.Console.WriteLine("Digite o link inicial: ");
-        var link = System.Console.ReadLine();
+        // var link = System.Console.ReadLine();
+        var link = "http://zqktlwiuavvvqqt4ybvgvi7tyo4hjl5xgfuvpdf6otjiycgwqbym2qad.onion/wiki/index.php/Main_Page";
         if(link != null)
         {
             currentLinks.Add(link);

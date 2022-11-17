@@ -54,4 +54,8 @@ public static class ConsoleHelper
 
         Write(table);
     }
+    public static void ExitMessage()
+    {
+        System.Console.WriteLine("A pesquisa foi concluída, encerrando...");
+    }
 }
