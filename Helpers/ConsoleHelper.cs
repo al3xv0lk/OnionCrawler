@@ -24,12 +24,13 @@ public static class ConsoleHelper
         Write(rule);
 
     }
-    public static void TotalResultsPanel(List<string> sitesOnline, List<string> tempUrls)
+    public static void TotalResultsPanel(HashSet<string> sitesOnline, int urlsAnalized)
     {
+        WhiteSpace();
         var panel = new Panel(new BreakdownChart()
             .Width(75)
             .AddItem("Links online", sitesOnline.Count, Color.Purple)
-            .AddItem("Links encontrados", tempUrls.Count, Color.White))
+            .AddItem("Links analizados", urlsAnalized, Color.White))
         {
             Header = new PanelHeader("Total", Justify.Center),
             Padding = new Padding(1),
@@ -37,6 +38,7 @@ public static class ConsoleHelper
             BorderStyle = new Style(Color.Purple)
         };
         Write(panel);
+        WhiteSpace();
     }
     public static void CreateTable(string title, string body)
     {

@@ -49,9 +49,9 @@ public static class HttpHelper
         return lastTimeTested;
     }
 
-    public static List<string> PageLinks(HtmlDocument htmlDoc)
+    public static HashSet<string> PageLinks(HtmlDocument htmlDoc)
     {
-        List<string> pageLinks = new();
+        HashSet<string> pageLinks = new();
         var links = htmlDoc.DocumentNode.SelectNodes("//a[@href]")
                     .Where(node => node.InnerText
                     .Contains(".onion"));
@@ -72,6 +72,12 @@ public static class HttpHelper
     {
         return GetAllUniqueWordsInPage(htmlDoc).Contains("Restricted words") ? true : false;
     }
+    public static string LinkListToString(HashSet<string> pageLinks)
+    {
+        var linksString = string.Join(", ", pageLinks);
+        System.Console.WriteLine(linksString);
+        return linksString;
+    }
 
     public static string HtmlContentToJson(HtmlDocument htmlDoc, string url)
     {
@@ -79,15 +85,14 @@ public static class HttpHelper
         {
             url = url,
             title = PageTitle(htmlDoc),
-            links = PageLinks(htmlDoc).ToString(),
-            // todo FIX
+            links = LinkListToString(PageLinks(htmlDoc)),
             content = GetAllUniqueWordsInPage(htmlDoc),
             potentialScammer = GetIsPotentialScam(htmlDoc),
             lastTimeTested = PageLastTimeTested()
         };
         string result = JsonConvert.SerializeObject(model);
+        
         return result;
-
     }
     public static async Task UploadJsonToOpenSearch(HtmlDocument htmlDoc, string url)
     {

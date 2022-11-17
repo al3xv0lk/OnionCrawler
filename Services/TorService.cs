@@ -14,10 +14,6 @@ namespace OnionCrawler.Services;
 
 public static class TorService
 {
-    private static List<string> tempUrls = new();
-    private static List<string> initialUrls = new();
-    private static List<string> sitesOnline = new();
-    private static HttpClient unProxiedClient = new();
     private static HttpClient _httpClient = new HttpClient(new SocketsHttpHandler()
     {
         Proxy = new System.Net.WebProxy("socks5://127.0.0.1:9050"),
@@ -33,28 +29,18 @@ public static class TorService
         };
     }
 
-    public static async Task RunInitialSearch()
+    public static async Task RunSearch()
     {
-        initialUrls.Add(InitialLinkToCrawl());
-        while (initialUrls.Count > 0)
+        // initialUrls.Add(InitialLinkToCrawl());
+        
         {
             await TestUrls(initialUrls);
-            initialUrls.Clear();
-            initialUrls.AddRange(tempUrls);
-            tempUrls.Clear();
         }
 
-        WhiteSpace();
-        TotalResultsPanel(sitesOnline, initialUrls);
-        WhiteSpace();
-        WriteLine($"Total new links found: {tempUrls.Count}");
-
-
-        tempUrls.Clear();
-        sitesOnline.Clear();
+        
     }
 
-    
+
 
     private static bool isTorProcessOn()
     {
@@ -152,7 +138,7 @@ public static class TorService
         return value;
     }
 
-    private static async Task TestUrls(List<string> urls)
+    private static async Task TestUrls(HashSet<string> urls)
     {
         try
         {
@@ -165,10 +151,9 @@ public static class TorService
                 var title = HttpHelper.PageTitle(htmlDoc);
 
                 var links = HttpHelper.PageLinks(htmlDoc);
-                if(links.Contains(url)) links.Remove(url);
-                tempUrls.AddRange(links);
+                LinksHelper.Analize(links);
 
-                await HttpHelper.UploadJsonToOpenSearch(htmlDoc, url);
+                // await HttpHelper.UploadJsonToOpenSearch(htmlDoc, url);
 
                 CreateTable(title, url);
 
@@ -182,4 +167,6 @@ public static class TorService
         }
         catch (System.Exception) { }
     }
+
+    
 }

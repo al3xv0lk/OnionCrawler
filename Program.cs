@@ -2,4 +2,4 @@
 
 
 await LoadTor();
-await RunInitialSearch();
+await RunSearch();
