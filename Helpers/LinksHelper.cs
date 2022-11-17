@@ -5,7 +5,7 @@ static class LinksHelper
     private static HashSet<string> tempUrls = new();
     private static HashSet<string> urlsAnalized = new();
     private static HashSet<string> sitesOnline = new();
-    public static void RemoveKnown(HashSet<string> links)
+    public static void SaveUniqueToTemp(HashSet<string> links)
     {
         var result = links.Except(urlsAnalized);
         tempUrls.UnionWith(result);

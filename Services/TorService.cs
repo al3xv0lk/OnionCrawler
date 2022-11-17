@@ -147,7 +147,7 @@ public static class TorService
 
                 var links = HttpHelper.PageLinks(htmlDoc);
 
-                LinksHelper.RemoveKnown(links);
+                LinksHelper.SaveUniqueToTemp(links);
 
                 // await HttpHelper.UploadJsonToOpenSearch(htmlDoc, url);
 
