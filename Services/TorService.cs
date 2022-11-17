@@ -148,6 +148,8 @@ public static class TorService
                 var links = HttpHelper.PageLinks(htmlDoc);
 
                 LinksHelper.SaveUniqueToTemp(links);
+                
+                LinksHelper.AddToSitesOnline(url);
 
                 // await HttpHelper.UploadJsonToOpenSearch(htmlDoc, url);
 

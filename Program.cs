@@ -3,8 +3,9 @@ using static OnionCrawler.Helpers.LinksHelper;
 
 
 await LoadTor();
+AskForLink();
 while(true)
 {
-    AskForLink();
     await RunSearch();
+    
 }
