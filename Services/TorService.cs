@@ -31,13 +31,8 @@ public static class TorService
 
     public static async Task RunSearch()
     {
-        // initialUrls.Add(InitialLinkToCrawl());
-        
-        {
-            await TestUrls(initialUrls);
-        }
-
-        
+        var links = LinksHelper.GetCurrentLinks();
+        await TestUrls(links);
     }
 
 
@@ -151,13 +146,14 @@ public static class TorService
                 var title = HttpHelper.PageTitle(htmlDoc);
 
                 var links = HttpHelper.PageLinks(htmlDoc);
-                LinksHelper.Analize(links);
+
+                LinksHelper.RemoveKnown(links);
 
                 // await HttpHelper.UploadJsonToOpenSearch(htmlDoc, url);
 
                 CreateTable(title, url);
 
-                sitesOnline.Add(url);
+                LinksHelper.AddToSitesOnline(url);
             }, new ExecutionDataflowBlockOptions { MaxDegreeOfParallelism = 100 });
 
             Parallel.ForEach(urls, (url) => tester.SendAsync(url));
@@ -168,5 +164,5 @@ public static class TorService
         catch (System.Exception) { }
     }
 
-    
+
 }
