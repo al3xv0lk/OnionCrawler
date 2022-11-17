@@ -7,5 +7,5 @@ AskForLink();
 while(true)
 {
     await RunSearch();
-    
+    TempToCurrent();
 }
