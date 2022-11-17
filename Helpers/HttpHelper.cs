@@ -53,7 +53,7 @@ public static class HttpHelper
     {
         HashSet<string> pageLinks = new();
         var links = htmlDoc.DocumentNode.SelectNodes("//a[@href]")
-                    .Where(node => node.InnerText
+                    .Where(node => node.GetAttributeValue("href", string.Empty)
                     .Contains(".onion"));
         foreach (var link in links)
         {

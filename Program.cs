@@ -10,4 +10,5 @@ while(GetCurrentLinks().Count > 0)
     await RunSearch();
     TempToCurrent();
 }
+TotalResultsPanel();
 ExitMessage();

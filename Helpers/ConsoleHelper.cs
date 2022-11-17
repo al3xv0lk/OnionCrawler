@@ -24,13 +24,13 @@ public static class ConsoleHelper
         Write(rule);
 
     }
-    public static void TotalResultsPanel(HashSet<string> sitesOnline, int urlsAnalized)
+    public static void TotalResultsPanel()
     {
         WhiteSpace();
         var panel = new Panel(new BreakdownChart()
             .Width(75)
-            .AddItem("Links online", sitesOnline.Count, Color.Purple)
-            .AddItem("Links analizados", urlsAnalized, Color.White))
+            .AddItem("Links online", LinksHelper.GetAllOnline(), Color.Purple)
+            .AddItem("Links analizados", LinksHelper.GetAllAnalized(), Color.White))
         {
             Header = new PanelHeader("Total", Justify.Center),
             Padding = new Padding(1),

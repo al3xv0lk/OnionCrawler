@@ -141,6 +141,7 @@ public static class TorService
 
             var tester = new ActionBlock<string>(async url =>
             {
+                // System.Console.WriteLine($"Analyzing url: {url}");
                 var htmlDoc = await _httpClient.LoadHtmlDocument(url);
 
                 var title = HttpHelper.PageTitle(htmlDoc);
@@ -148,7 +149,7 @@ public static class TorService
                 var links = HttpHelper.PageLinks(htmlDoc);
 
                 LinksHelper.SaveUniqueToTemp(links);
-                
+
                 LinksHelper.AddToSitesOnline(url);
 
                 // await HttpHelper.UploadJsonToOpenSearch(htmlDoc, url);
