@@ -1,4 +1,4 @@
-# OnionCrawler
+# OnionCrawler v1.0
 <img
   src="https://user-images.githubusercontent.com/59628368/202736877-1513e4e2-a6d6-4053-9aa9-68c775089709.png"
   alt="Alt text"
