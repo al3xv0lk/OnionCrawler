@@ -12,7 +12,7 @@
   
 
 ## Sobre o projeto
-Um crawler assíncrono e com fácil integração a databases OpenSearch(Elasticsearch) para a rede Tor(Deep Web),  
+Um crawler assíncrono e com fácil integração a databases OpenSearch(Elasticsearch) para a rede Tor(Deep Web).
 ## Como funciona
 O OnionCrawler utiliza o Tor como proxy, analisa um link inicial e segue buscando todos os links encontrados durante a execução, todos os links obtidos são testados de forma paralela e assíncrona. Somente links válidos e online são retornados.
 ## Guia de uso
