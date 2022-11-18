@@ -67,7 +67,7 @@ public static class ConsoleHelper
         WhiteSpace();
 
         var panel = new Panel("Um crawler assíncrono para a rede Tor(Deep Web)." +
-        "\nDigite um link ele vai encontrar todos os links vinculados de alguma forma a ele." + 
+        "\nDigite um link inicial, o crawler vai encontrar todos os links online vinculados de alguma forma a ele." + 
         "\n[bold]Atenção:[/] 99% dos sites que pedem algum tipo de pagamento, são golpes." + 
         "\n[bold]Lembre-se[/]: [italic]você é o único responsável por suas ações.[/]")
         {
