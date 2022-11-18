@@ -33,9 +33,8 @@ static class LinksHelper
     }
     public static void AskForLink()
     {
-        System.Console.Write("Digite o link inicial: ");
-        // var link = System.Console.ReadLine();
-        var link = "http://zqktlwiuavvvqqt4ybvgvi7tyo4hjl5xgfuvpdf6otjiycgwqbym2qad.onion/wiki/index.php/Main_Page";
+        System.Console.Write(" Digite o link inicial: ");
+        var link = System.Console.ReadLine();
         if(link != null)
         {
             currentLinks.Add(link);
@@ -45,6 +44,5 @@ static class LinksHelper
     public static void AddToSitesOnline(string link)
     {
         sitesOnline.Add(link);
-        // System.Console.WriteLine($"Total Online: {sitesOnline.Count} | Total Found: {urlsAnalized.Count}");
     }
 }

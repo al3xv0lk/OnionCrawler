@@ -4,11 +4,15 @@ using static OnionCrawler.Helpers.ConsoleHelper;
 
 
 await LoadTor();
-AskForLink();
-while(GetCurrentLinks().Count > 0)
+WelcomeMsg();
+while(true)
 {
-    await RunSearch();
-    TempToCurrent();
+    AskForLink();
+    while(GetCurrentLinks().Count > 0)
+    {
+        await RunSearch();
+        TempToCurrent();
+    }
+    TotalResultsPanel();
+    ExitMessage();
 }
-TotalResultsPanel();
-ExitMessage();

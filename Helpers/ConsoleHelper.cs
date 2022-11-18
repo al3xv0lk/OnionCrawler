@@ -44,7 +44,7 @@ public static class ConsoleHelper
     {
         var table = new Table()
         {
-            Width = 80,
+            Width = 110,
             Border = TableBorder.Rounded,
             BorderStyle = new Style(Color.Purple)
         };
@@ -56,6 +56,28 @@ public static class ConsoleHelper
     }
     public static void ExitMessage()
     {
-        System.Console.WriteLine("A pesquisa foi concluída, encerrando...");
+        WhiteSpace();
+        System.Console.WriteLine(" A pesquisa foi concluída, pressione CTRL + C para sair...");
+        WhiteSpace();
+    }
+     public static void WelcomeMsg()
+    {
+        Write(new FigletText("OnionCrawler").Alignment(Justify.Left).Color(Color.Purple));
+
+        WhiteSpace();
+
+        var panel = new Panel("Crawler para a rede Tor(Deep Web)." +
+        "\nDigite um link ele vai encontrar todos os links vinculados de alguma forma a ele." + 
+        "\n[bold]Atenção:[/] 99% dos sites que pedem algum tipo de pagamento, são golpes." + 
+        "\n[bold]Lembre-se[/]: [italic]você é o único responsável por suas ações.[/]")
+        {
+            Header = new PanelHeader("Bem-vindo(a)!", Justify.Center),
+            Padding = new Padding(1),
+            Border = BoxBorder.Rounded,
+            BorderStyle = new Style(Color.Purple)
+        };
+
+        Write(panel);
+        WhiteSpace(3);
     }
 }

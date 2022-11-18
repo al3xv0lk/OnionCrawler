@@ -75,7 +75,6 @@ public static class HttpHelper
     public static string LinkListToString(HashSet<string> pageLinks)
     {
         var linksString = string.Join(", ", pageLinks);
-        System.Console.WriteLine(linksString);
         return linksString;
     }
 
