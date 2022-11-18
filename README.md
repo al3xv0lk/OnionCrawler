@@ -1,15 +1,15 @@
 # OnionCrawler v1.0
 <img
-  src="https://user-images.githubusercontent.com/59628368/202736877-1513e4e2-a6d6-4053-9aa9-68c775089709.png"
+  src="https://user-images.githubusercontent.com/59628368/202757842-352fc54e-195b-4a30-bc7b-9891faa28515.png"
   alt="Alt text"
   title="Optional title"
   style="display: inline-block; margin: 0 auto; width: 350px">
 <img
-  src="https://user-images.githubusercontent.com/59628368/202742829-1f45955b-db28-4f43-82bb-dc66dbbeb715.png"
+  src="https://user-images.githubusercontent.com/59628368/202758683-817eaefc-2fe1-4225-b1e0-b8b2ae48bcf7.png"
   alt="Alt text"
   title="Optional title"
   style="display: inline-block; margin: 0 auto; width: 350px">
-  
+
 
 ## Sobre o projeto
 Um crawler assíncrono e com fácil integração a databases OpenSearch(Elasticsearch) para a rede Tor(Deep Web).
@@ -23,7 +23,6 @@ O OnionCrawler utiliza o Tor como proxy, analisa um link inicial e segue buscand
 5. Inicie o Tor e conecte.
 6. LINUX: Abra o terminal na pasta do executável e `./OnionFinder` para iniciar o programa. WINDOWS: Abra o OnionCrawler normalmente.
 7. Digite ou cole o link inicial. Links deverão ser no padrão atual: http://tordexu73joywapk2txdr54jed4imqledpcvcuf75qsas2gwdgksvnyd.onion
-
 ## Integração OpenSearch (Em construção)
 Caso queira salvar todos os resultados em uma database para futuras pesquisas, a integração é simples:
 1. Edite o arquivo "login" na pasta raiz do executável, editando o usuário, senha e link da API da sua DB 
