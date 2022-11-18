@@ -1,6 +1,6 @@
 # OnionCrawler v1.0
 <img
-  src="https://user-images.githubusercontent.com/59628368/202757842-352fc54e-195b-4a30-bc7b-9891faa28515.png"
+  src="https://user-images.githubusercontent.com/59628368/202769061-a904670d-05d1-4869-a46a-594e4ba2bce0.png"
   alt="Alt text"
   title="Optional title"
   style="display: inline-block; margin: 0 auto; width: 350px">
