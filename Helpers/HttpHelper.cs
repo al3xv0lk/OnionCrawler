@@ -1,12 +1,9 @@
 using HtmlAgilityPack;
 using System.Text;
-using System.Text.Json;
 using RestSharp;
-using Newtonsoft.Json.Linq;
 using RestSharp.Authenticators;
 using Newtonsoft.Json;
 using RestSharp.Serializers;
-using System.Threading;
 
 namespace OnionCrawler.Helpers;
 
